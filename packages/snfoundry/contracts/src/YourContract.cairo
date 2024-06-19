@@ -1,5 +1,23 @@
 use starknet::ContractAddress;
 
+// #[derive(Drop, Serde, starknet::Store)]
+// pub struct CreditorBalance {
+//     paid_amount: u256,
+//     remaining_amount: u256,
+//     next_payment_date: u256,
+//     next_payment_amount: u256,
+// }
+
+// #[derive(Drop, Serde, starknet::Store)]
+// pub struct DebtorBalance {
+//     invested_amount: u256,
+//     received_amount: u256,
+//     remaining_amount: u256,
+//     profit_made: u256,
+//     next_payment_amount: u256,
+//     next_payment_date: u256,
+// }
+
 #[starknet::interface]
 pub trait IYourContract<TContractState> {
     fn greeting(self: @TContractState) -> ByteArray;
@@ -27,18 +45,16 @@ pub trait IYourContract<TContractState> {
     // to be implemented off chain with AI model
     // fn validate_project(ref self: TContractState, project_id: u256, rentability_score: u256);
     fn refund_amount(ref self: TContractState, debtor: ContractAddress, amount: u256);
+// fn get_creditor_balance(
+//     self: @TContractState, creditor: ContractAddress, cycle_id: u256
+// ) -> CreditorBalance;
 
-    fn get_creditor_balance(
-        self: @TContractState, creditor: ContractAddress, cycle_id: u256
-    ) -> (u256, u256, u256, u256);
-
-    fn get_debtor_balance(
-        self: @TContractState, debtor: ContractAddress, cycle_id: u256
-    ) -> (u256, u256, u256, u256, u256, u256);
-
-    fn get_creditor_history(
-        self: @TContractState, creditor: ContractAddress
-    ) -> LegacyMap<u256, u256>;
+// fn get_debtor_balance(
+//     self: @TContractState, debtor: ContractAddress, cycle_id: u256
+// ) -> DebtorBalance;
+// fn get_creditor_history(
+//     self: @TContractState, creditor: ContractAddress
+// ) -> LegacyMap<u256, u256>;
 // fn get_debtor_history(self: @TContractState, debtor: ContractAddress) -> LegacyMap<u256, u256>;
 }
 
@@ -140,6 +156,7 @@ mod YourContract {
         refunds: LegacyMap<(ContractAddress, u256), u256>,
     }
 
+    #[derive(Drop, starknet::Store)]
     struct Cycle {
         id: u256,
         start_time: u256,
@@ -148,6 +165,7 @@ mod YourContract {
         is_active: bool,
     }
 
+    #[derive(Drop, starknet::Store)]
     struct Project {
         id: u256,
         cycle_id: u256,
@@ -241,7 +259,7 @@ mod YourContract {
             assert!(amount >= cycle.min_investment, "Amount is less than the minimum investment");
 
             let creditor = get_caller_address();
-            let current_deposit = self.deposits.read((creditor, cycle_id)).unwrap_or(0.into());
+            let current_deposit: u256 = 50.into(); // Placeholder logic
             self.deposits.write((creditor, cycle_id), current_deposit + amount);
             self.eth_token.read().transferFrom(creditor, get_contract_address(), amount);
             self.emit(DepositMade { creditor, cycle_id, amount });
@@ -286,37 +304,38 @@ mod YourContract {
             self.refunds.write((debtor, amount), amount);
             self.emit(RefundMade { debtor, amount });
         }
+    // Get the balance for a creditor in a specific cycle
+    // fn get_creditor_balance(
+    //     self: @ContractState, creditor: ContractAddress, cycle_id: u256
+    // ) -> CreditorBalance {
+    //     let paid_amount: u256 = 50.into(); // Placeholder logic
+    //     let remaining_amount: u256 = 0.into(); // Placeholder logic
+    //     let next_payment_date: u256 = 0.into(); // Placeholder logic
+    //     let next_payment_amount: u256 = 0.into(); // Placeholder logic
+    //     CreditorBalance {
+    //         paid_amount, remaining_amount, next_payment_date, next_payment_amount,
+    //     }
+    // }
 
-        // Get the balance for a creditor in a specific cycle
-        fn get_creditor_balance(
-            self: @ContractState, creditor: ContractAddress, cycle_id: u256
-        ) -> (u256, u256, u256, u256) {
-            let paid_amount = self.deposits.read((creditor, cycle_id)).unwrap_or(0.into());
-            let remaining_amount = 0.into(); // Placeholder logic
-            let next_payment_date = 0.into(); // Placeholder logic
-            let next_payment_amount = 0.into(); // Placeholder logic
-            (paid_amount, remaining_amount, next_payment_date, next_payment_amount)
-        }
-
-        // Get the balance for a debtor in a specific cycle
-        fn get_debtor_balance(
-            self: @ContractState, debtor: ContractAddress, cycle_id: u256
-        ) -> (u256, u256, u256, u256, u256, u256) {
-            let invested_amount = self.deposits.read((debtor, cycle_id)).unwrap_or(0.into());
-            let received_amount = 0.into(); // Placeholder logic
-            let remaining_amount = 0.into(); // Placeholder logic
-            let profit_made = 0.into(); // Placeholder logic
-            let next_payment_amount = 0.into(); // Placeholder logic
-            let next_payment_date = 0.into(); // Placeholder logic
-            (
-                invested_amount,
-                received_amount,
-                remaining_amount,
-                profit_made,
-                next_payment_amount,
-                next_payment_date
-            )
-        }
+    // Get the balance for a debtor in a specific cycle
+    // fn get_debtor_balance(
+    //     self: @ContractState, debtor: ContractAddress, cycle_id: u256
+    // ) -> DebtorBalance {
+    //     let invested_amount: u256 = 100.into();
+    //     let received_amount: u256 = 0.into(); // Placeholder logic
+    //     let remaining_amount: u256 = 0.into(); // Placeholder logic
+    //     let profit_made: u256 = 0.into(); // Placeholder logic
+    //     let next_payment_amount: u256 = 0.into(); // Placeholder logic
+    //     let next_payment_date: u256 = 0.into(); // Placeholder logic
+    //     DebtorBalance {
+    //         invested_amount,
+    //         received_amount,
+    //         remaining_amount,
+    //         profit_made,
+    //         next_payment_amount,
+    //         next_payment_date,
+    //     }
+    // }
     // Get the history of transactions for a creditor
     // fn get_creditor_history(self: @ContractState, creditor: ContractAddress) -> LegacyMap<u256, u256> {
     //     self.deposits.iter().filter(|(k, _)| k.0 == creditor).collect()

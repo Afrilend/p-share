@@ -64,7 +64,7 @@ const deployedContracts = {
           items: [
             {
               type: "function",
-              name: "gretting",
+              name: "greeting",
               inputs: [],
               outputs: [
                 {
@@ -75,7 +75,7 @@ const deployedContracts = {
             },
             {
               type: "function",
-              name: "set_gretting",
+              name: "set_greeting",
               inputs: [
                 {
                   name: "new_greeting",
@@ -106,6 +106,94 @@ const deployedContracts = {
                 },
               ],
               state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "start_cycle",
+              inputs: [
+                {
+                  name: "cycle_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "start_time",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "end_time",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "min_investment",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "stop_cycle",
+              inputs: [
+                {
+                  name: "cycle_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "deposit_in_cycle",
+              inputs: [
+                {
+                  name: "cycle_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "submit_project",
+              inputs: [
+                {
+                  name: "cycle_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "project_name",
+                  type: "core::byte_array::ByteArray",
+                },
+                {
+                  name: "budget",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "refund_amount",
+              inputs: [
+                {
+                  name: "debtor",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
             },
           ],
         },
@@ -240,6 +328,133 @@ const deployedContracts = {
         },
         {
           type: "event",
+          name: "contracts::YourContract::YourContract::CycleStarted",
+          kind: "struct",
+          members: [
+            {
+              name: "cycle_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "start_time",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "end_time",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "min_investment",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::YourContract::YourContract::CycleStopped",
+          kind: "struct",
+          members: [
+            {
+              name: "cycle_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::YourContract::YourContract::DepositMade",
+          kind: "struct",
+          members: [
+            {
+              name: "creditor",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "cycle_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::YourContract::YourContract::ProjectSubmitted",
+          kind: "struct",
+          members: [
+            {
+              name: "project_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "cycle_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "project_name",
+              type: "core::byte_array::ByteArray",
+              kind: "data",
+            },
+            {
+              name: "budget",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::YourContract::YourContract::ProjectValidated",
+          kind: "struct",
+          members: [
+            {
+              name: "project_id",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "rentability_score",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "is_valid",
+              type: "core::bool",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::YourContract::YourContract::RefundMade",
+          kind: "struct",
+          members: [
+            {
+              name: "debtor",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "data",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
           name: "contracts::YourContract::YourContract::Event",
           kind: "enum",
           variants: [
@@ -251,6 +466,36 @@ const deployedContracts = {
             {
               name: "GreetingChanged",
               type: "contracts::YourContract::YourContract::GreetingChanged",
+              kind: "nested",
+            },
+            {
+              name: "CycleStarted",
+              type: "contracts::YourContract::YourContract::CycleStarted",
+              kind: "nested",
+            },
+            {
+              name: "CycleStopped",
+              type: "contracts::YourContract::YourContract::CycleStopped",
+              kind: "nested",
+            },
+            {
+              name: "DepositMade",
+              type: "contracts::YourContract::YourContract::DepositMade",
+              kind: "nested",
+            },
+            {
+              name: "ProjectSubmitted",
+              type: "contracts::YourContract::YourContract::ProjectSubmitted",
+              kind: "nested",
+            },
+            {
+              name: "ProjectValidated",
+              type: "contracts::YourContract::YourContract::ProjectValidated",
+              kind: "nested",
+            },
+            {
+              name: "RefundMade",
+              type: "contracts::YourContract::YourContract::RefundMade",
               kind: "nested",
             },
           ],
