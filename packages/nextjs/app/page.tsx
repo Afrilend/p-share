@@ -141,7 +141,24 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-
+        <section className="flex-grow w-full mt-16 px-8 py-12">
+          <div className="flex items-center justify-center py-12 md:py-32">
+            <div className="flex flex-wrap justify-center space-x-4">
+              {stats.map((stat, index) => (
+                <div key={index} className="bg-base-100 dark:bg-neutral p-6 rounded-lg shadow-lg flex flex-col items-center w-64 mb-4">
+                  <div className="relative w-24 h-24 mb-4">
+                    <div className={`absolute top-0 left-0 w-full h-full rounded-full border-4 ${stat.borderColor}`} style={{ clip: 'rect(0px, 120px, 120px, 60px)' }}>
+                      <div className={`absolute w-full h-full rounded-full border-4 ${stat.borderColor}`} style={{ clip: 'rect(0px, 60px, 120px, 0px)', transform: stat.rotation }}></div>
+                    </div>
+                    <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-200 dark:border-gray-600"></div>
+                    <div className="flex items-center justify-center w-full h-full absolute top-0 left-0 text-3xl font-bold">{stat.percentage}</div>
+                  </div>
+                  <p className="text-center text-sm text-light ">{stat.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         {/* <div
           onClick={() => {
             writeAsync();
