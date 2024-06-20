@@ -18,6 +18,15 @@ use starknet::ContractAddress;
 //     next_payment_date: u256,
 // }
 
+#[derive(Drop, starknet::Store)]
+pub struct Cycle {
+    id: u256,
+    start_time: u256,
+    end_time: u256,
+    min_investment: u256,
+    is_active: bool,
+}
+
 #[starknet::interface]
 pub trait IYourContract<TContractState> {
     fn greeting(self: @TContractState) -> ByteArray;
@@ -25,16 +34,12 @@ pub trait IYourContract<TContractState> {
     fn withdraw(ref self: TContractState);
     fn premium(self: @TContractState) -> bool;
 
-    // custom methods
+    // cycle management
     fn start_cycle(
-        ref self: TContractState,
-        cycle_id: u256,
-        start_time: u256,
-        end_time: u256,
-        min_investment: u256
+        ref self: TContractState, start_time: u256, end_time: u256, min_investment: u256
     );
-
     fn stop_cycle(ref self: TContractState, cycle_id: u256);
+    // fn get_cycles(self: @TContractState) -> LegacyMap<u256, Cycle>;
 
     fn deposit_in_cycle(ref self: TContractState, cycle_id: u256, amount: u256);
 
@@ -63,6 +68,7 @@ mod YourContract {
     use openzeppelin::access::ownable::OwnableComponent;
     use openzeppelin::token::erc20::interface::{IERC20CamelDispatcher, IERC20CamelDispatcherTrait};
     use starknet::{get_caller_address, get_contract_address};
+    use super::Cycle;
     use super::{ContractAddress, IYourContract};
 
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
@@ -157,15 +163,6 @@ mod YourContract {
     }
 
     #[derive(Drop, starknet::Store)]
-    struct Cycle {
-        id: u256,
-        start_time: u256,
-        end_time: u256,
-        min_investment: u256,
-        is_active: bool,
-    }
-
-    #[derive(Drop, starknet::Store)]
     struct Project {
         id: u256,
         cycle_id: u256,
@@ -225,13 +222,14 @@ mod YourContract {
 
         // Start a new investment cycle
         fn start_cycle(
-            ref self: ContractState,
-            cycle_id: u256,
-            start_time: u256,
-            end_time: u256,
-            min_investment: u256
+            ref self: ContractState, start_time: u256, end_time: u256, min_investment: u256
         ) {
-            self.ownable.assert_only_owner();
+            // validation checks
+            assert!(start_time < end_time, "Start time must be before end time");
+            assert!(min_investment > 0, "Minimum investment must be greater than 0");
+
+            // self.ownable.assert_only_owner();
+            let cycle_id = self.total_counter.read() + 1;
             let cycle = Cycle {
                 id: cycle_id,
                 start_time: start_time,
@@ -239,9 +237,28 @@ mod YourContract {
                 min_investment: min_investment,
                 is_active: true,
             };
+
+            println!("Cycle started with id: {}", cycle_id);
+            println!("Cycle start time: {}", start_time);
+
             self.cycles.write(cycle_id, cycle);
             self.emit(CycleStarted { cycle_id, start_time, end_time, min_investment });
         }
+        // get active cycles
+        // fn get_cycles(self: @TContractState) -> LegacyMap<u256, Cycle> {
+        //     let mut active_cycles = LegacyMap::new();
+        //     let total_cycles = self.total_counter.read();
+
+        //     let mut cycle_id = 1;
+        //     while cycle_id <= total_cycles {
+        //         let cycle = self.cycles.read(cycle_id);
+        //         if cycle.is_active {
+        //             active_cycles.insert(cycle_id, cycle);
+        //         }
+        //         cycle_id += 1;
+        //     }
+        //     active_cycles
+        // }
 
         // // Stop an existing investment cycle
         fn stop_cycle(ref self: ContractState, cycle_id: u256) {

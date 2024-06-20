@@ -6,6 +6,8 @@
 const deployedContracts = {
   devnet: {
     YourContract: {
+      address:
+        "0x0752aee555252ac2892550e38b823573c954b749430ac9ba3549e9e5693b78a4",
       abi: [
         {
           type: "impl",
@@ -111,10 +113,6 @@ const deployedContracts = {
               type: "function",
               name: "start_cycle",
               inputs: [
-                {
-                  name: "cycle_id",
-                  type: "core::integer::u256",
-                },
                 {
                   name: "start_time",
                   type: "core::integer::u256",
