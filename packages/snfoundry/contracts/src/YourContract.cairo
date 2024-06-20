@@ -262,8 +262,10 @@ mod YourContract {
 
         // // Stop an existing investment cycle
         fn stop_cycle(ref self: ContractState, cycle_id: u256) {
-            self.ownable.assert_only_owner();
+            // self.ownable.assert_only_owner();
             let mut cycle = self.cycles.read(cycle_id);
+            
+            assert!(cycle.is_active, "Cycle is not active");
             cycle.is_active = false;
             self.cycles.write(cycle_id, cycle);
             self.emit(CycleStopped { cycle_id });
