@@ -6,8 +6,7 @@ import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
-
-
+import { accountsDetails } from "./data/accountsDetails";
 
 const Home: NextPage = () => {
   const connectedAddress = useAccount();
@@ -28,119 +27,28 @@ const Home: NextPage = () => {
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 lg:gap-32 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-4 lg:px-8 py-5 max-w-lg rounded-xl drop-shadow-2xl">
-              <h5 className="text-3xl font-bold mb-6">For debtor</h5>
-              <ul className="list lh-lg mb-6 ml-4 leading-relaxed lg:leading-[3em]">
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Creating an Ethereum wallet.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Set up your debtor account</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Deposit funds</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0 leading-normal">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Participate in one-year investment cycles.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Submit documents for validation</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Complete KYC validation.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Join investment campaigns</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Track total investments per cycle</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Ensure deposits meet required amounts.
-                  </span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Withdraw funds after campaign completion</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Receive returns plus interest.</span>
-                </li>
-              </ul>
-              <Link 
-                href='' 
-                className="bg-emerald-500 shadow-md py-2 px-4 rounded-full text-center text-white font-bold text-xl hover:bg-blue-200 hover:text-cyan-950">
-                  Submit a Project
-              </Link>
-            </div>
-            <div className="flex flex-col bg-base-100 px-4 lg:px-8 py-5 max-w-lg rounded-xl drop-shadow-2xl">
-              <h5 className="text-3xl font-bold mb-6">For Creditor</h5>
-              <ul className="list lh-lg mb-6 ml-4 leading-relaxed lg:leading-[3em]">
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Creating an Ethereum wallet.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Set up your debtor account</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Deposit funds</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0 leading-normal">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Participate in one-year investment cycles.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Submit documents for validation</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Complete KYC validation.</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Join investment campaigns</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Track total investments per cycle</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Ensure deposits meet required amounts.
-                  </span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Withdraw funds after campaign completion</span>
-                </li>
-                <li className="flex items-center py-2 md:py-0">
-                  <CheckIcon className="size-6 text-green-300 mr-2"/>
-                  <span>Receive returns plus interest.</span>
-                </li>
-              </ul>
-              <Link 
-                href='' 
-                className="bg-emerald-500 shadow-md py-2 px-4 rounded-full text-center text-white font-bold text-xl hover:bg-blue-200 hover:text-cyan-950">
-                  Invest on  Project
-              </Link>
-            </div>
+          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
+            {accountsDetails.map((account, index) => (
+              <div className="flex flex-col bg-base-100 px-4 lg:px-8 py-5 max-w-lg rounded-xl drop-shadow-2xl" key={index}>
+                <h5 className="text-3xl font-bold mb-6">{account.title}</h5>
+                <ul className="list lh-lg mb-6 ml-4 leading-relaxed lg:leading-[3em]">
+                  {account.details.map((detail, detailIndex) => (
+                    <li key={detailIndex} className="flex items-center py-2 md:py-0">
+                      <CheckIcon className="size-6 text-primary mr-2"/>
+                      <span>{detail}</span>
+                  </li>
+                  ))}
+                </ul>
+                {account.component && (
+                  <div className="mt-4">
+                    {account.component}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
+
         <section className="flex-grow w-full mt-16 px-8 py-12">
           <div className="flex items-center justify-center py-12 md:py-32">
             <div className="flex flex-wrap justify-center space-x-4">
