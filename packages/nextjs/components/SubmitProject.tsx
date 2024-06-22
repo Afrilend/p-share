@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   InputBase
 } from "~~/components/scaffold-stark";
-import { BanknotesIcon } from "@heroicons/react/24/outline";
 
 export const SubmitProject = () => {
   const [loading, setLoading] = useState(false);
