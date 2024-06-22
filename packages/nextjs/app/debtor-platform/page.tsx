@@ -80,6 +80,18 @@ const DebtorPlatform: NextPage = () => {
                         onChange={(value) => setSendValue(value)}
                       />
                     </div>
+                    
+                    <div className="flex flex-col space-y-3 mb-3">
+                      <div
+                        className={`flex border-2 border-base-300 bg-base-200 rounded-xl text-accent`}
+                      >
+                        <textarea 
+                          id="project-details" 
+                          rows={4} 
+                          className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-400 h-[8.8rem] min-h-[8.8rem] px-4 border w-full font-medium placeholder:text-accent/50 text-gray-400 rounded-xl" 
+                          placeholder="Write the project details..."></textarea>
+                      </div>
+                    </div>
 
                     <label>
                       <p>Upload a PDF file</p>
