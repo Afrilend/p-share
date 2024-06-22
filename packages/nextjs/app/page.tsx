@@ -6,6 +6,7 @@ import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
+import 'animate.css';
 import { accountsDetails } from "./data/accountsDetails";
 import { homepageAccountDetails } from "./data/homePageAccountsDetails";
 
@@ -39,12 +40,12 @@ const Home: NextPage = () => {
         </div>
 
         <div className="flex-grow bg-base-100 w-full mt-16 px-8 py-12">
-          <div className="container mx-auto px-4 py-8">
-            <div className="rounded-xl drop-shadow-2xl bg-base-300">
+          <div className="container mx-auto px-4 py-4">
+            <div className="rounded-xl drop-shadow-2xl bg-base-300 py-12">
               <div className="flex justify-center items-center h-full">
                 <div className="flex justify-center items-center gap-12 flex-col sm:flex-row w-full max-w-6xl">
                   {homepageAccountDetails.map((account, index) => (
-                    <div className="flex-1 px-4 lg:px-8 py-5 bg-base-200 rounded shadow h-96" key={index}>
+                    <div className="flex-1 px-4 lg:px-8 py-5 bg-base-200 rounded-xl shadow h-96" key={index}>
                       <h5 className="text-3xl font-bold mb-6">{account.title}</h5>
                       <ul className="list-disc list-inside text-1xl mb-6">
                         {account.details.map((detail, idx) => (
@@ -81,17 +82,21 @@ const Home: NextPage = () => {
 
         <section className="flex-grow w-full mt-16 px-8 py-12">
           <div className="flex items-center justify-center py-12 md:py-32">
-            <div className="flex flex-wrap justify-center space-x-4">
+            <div className="flex flex-wrap justify-center space-x-4 space-y-4">
               {stats.map((stat, index) => (
-                <div key={index} className="bg-primary p-6 rounded-lg shadow-lg flex flex-col items-center w-64 mb-4">
-                  <div className="relative w-24 h-24 mb-4">
-                    <div className={`absolute top-0 left-0 w-full h-full rounded-full border-4 ${stat.borderColor}`} style={{ clip: 'rect(0px, 120px, 120px, 60px)' }}>
-                      <div className={`absolute w-full h-full rounded-full border-4 ${stat.borderColor}`} style={{ clip: 'rect(0px, 60px, 120px, 0px)', transform: stat.rotation }}></div>
+                <div
+                  key={index}
+                  className={`bg-gradient-to-r from-primary to-base-200 p-6 rounded-lg shadow-lg flex flex-col items-center w-64 mb-4 animate__animated animate__fadeInUp`}
+                  style={{ animationDelay: `${index * 0.2}s`, animationDuration: '1s' }}
+                >
+                  <div className={`relative w-36 h-36 mb-4 bg-base-100 rounded-full flex items-center justify-center ${stat.borderColor} ${stat.rotation} border-4`}>
+                    <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-primary">
+                      {stat.percentage}
                     </div>
-                    <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-200 dark:border-gray-600"></div>
-                    <div className="flex items-center justify-center w-full h-full absolute top-0 left-0 text-3xl font-bold">{stat.percentage}</div>
                   </div>
-                  <p className="text-center text-sm text-light ">{stat.description}</p>
+                  <p className="text-center text-white mt-2 font-medium text-2xl">
+                    {stat.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -112,13 +117,13 @@ const stats = [
     rotation: 'rotate-[324deg]',
   },
   {
-    percentage: '50+',
+    percentage: '50+ Eth',
     description: 'Current Cycle Target',
     borderColor: 'border-gray-400',
     rotation: 'rotate-[252deg]',
   },
   {
-    percentage: '45+',
+    percentage: '45+ Eth',
     description: 'Current Cycle Invested',
     borderColor: 'border-orange-500',
     rotation: 'rotate-[270deg]',
@@ -128,5 +133,5 @@ const stats = [
     description: 'Total Number of Founded Projects',
     borderColor: 'border-blue-700',
     rotation: 'rotate-[226.8deg]',
-  },
+  }
 ];

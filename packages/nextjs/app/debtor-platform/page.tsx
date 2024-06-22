@@ -46,18 +46,14 @@ const DebtorPlatform: NextPage = () => {
           <div className="px-5">
             <h1 className="text-center">
               <ul className="list lh-lg list-inside text-1xl">
-                <li className="block text-4xl font-bold mb-5">PShare</li>
+                <li className="block text-4xl font-bold mb-5">Your Debtor Page</li>
               </ul>
-            </h1> 
-            <div className="flex justify-center items-center space-x-2">
-              <p className="my-2 font-medium">Connected Address:</p>
-              <Address address={connectedAddress.address as AddressType} />
-            </div>
+            </h1>
           </div>
-          <div className="flex-grow bg-base-100 w-full mt-16 px-24 py-6">
-            <div className="flex justify-center flex-col sm:flex-row bg-base-300 p-12 py-0 pb-12 drop-shadow-2xl rounded-xl">
+          <div className="flex-grow bg-base-100 w-full mt-16 px-24 p-6">
+            <div className="flex justify-center flex-col sm:flex-row p-12 pb-12 drop-shadow-2xl rounded-xl">
 
-              <div className="container mx-auto bg-base-200 px-4 xl:px-8 py-5 gap-12 drop-shadow-2xl max-w-2xl">
+              <div className="container mx-auto bg-base-200 px-4 xl:px-8 py-5 gap-12 drop-shadow-2xl rounded-xl max-w-2xl">
                 <h5 className="text-3xl font-bold mb-6">{account.title}</h5>
                 <ul className="list lh-lg mb-6 ml-4 leading-relaxed lg:leading-[3em]">
                   {account.details.map((detail, detailIndex) => (
@@ -69,7 +65,7 @@ const DebtorPlatform: NextPage = () => {
                 </ul>
               </div>
               
-              <div className="container mx-auto bg-base-200 px-4 xl:px-8 py-5 drop-shadow-2xl max-w-4xl">
+              <div className="container mx-auto bg-base-200 px-4 xl:px-8 py-5 drop-shadow-2xl rounded-xl max-w-4xl">
                 <h5 className="text-3xl font-bold mb-6">Submit a project</h5>
                 <form  className="flex flex-col gap-4">
                   <div className="space-y-3">
@@ -89,7 +85,7 @@ const DebtorPlatform: NextPage = () => {
                           id="project-details" 
                           rows={4} 
                           className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-400 h-[8.8rem] min-h-[8.8rem] px-4 border w-full font-medium placeholder:text-accent/50 text-gray-400 rounded-xl" 
-                          placeholder="Write the project details..."></textarea>
+                          placeholder="Write the project's details..."></textarea>
                       </div>
                     </div>
 

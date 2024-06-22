@@ -11,7 +11,7 @@ type AccountsDetails = AccountDetails[];
 
 export const accountsDetails: AccountsDetails = [
   {
-    title: "For debtor",
+    title: "Debtor",
     details: [
       "Creating an Ethereum wallet.",
       "Set up your debtor account",
@@ -25,7 +25,7 @@ export const accountsDetails: AccountsDetails = [
   },
 
   {
-    title: "For Creditor",
+    title: "Creditor",
     details: [
       "Join investment campaigns",
       "Track total investments per cycle",

@@ -35,6 +35,7 @@
     "@dynamic-labs/ethereum": "^2.2.2",
     "@dynamic-labs/ethereum-aa": "^2.2.2",
     "@dynamic-labs/sdk-react-core": "^2.2.2",
+    "animate.css": "^4.1.1",
     "postcss": "^8.4.38",
     "viem": "^2.15.1"
   }
