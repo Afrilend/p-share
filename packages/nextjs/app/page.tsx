@@ -142,13 +142,13 @@ const stats = [
     rotation: "rotate-[0deg]",
   },
   {
-    percentage: "50+ Eth",
+    percentage: "$1M",
     description: "Current Cycle Target",
     borderColor: "border-gray-400",
     rotation: "rotate-[0deg]",
   },
   {
-    percentage: "45+ Eth",
+    percentage: "$100K",
     description: "Current Cycle Invested",
     borderColor: "border-orange-500",
     rotation: "rotate-[0deg]",
