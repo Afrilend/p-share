@@ -4,7 +4,7 @@ import "~~/styles/globals.css";
 import { ThemeProvider } from "~~/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "PShare",
+  title: "pƧhare",
   description: "Fast track your starknet journey",
   icons: "/logo.ico",
 };

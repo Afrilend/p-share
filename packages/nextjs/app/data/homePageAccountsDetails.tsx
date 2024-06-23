@@ -22,11 +22,11 @@ export const homepageAccountDetails: AccountsDetails = [
     details: [
      {
       title: "Submit Your Project",
-      content: "Share your innovative idea or project on PShare."
+      content: "Share your innovative idea or project on pƧhare."
      },
      {
       title: "Validation Phase",
-      content: "Our team will thoroughly review your submission to ensure it meets all necessary criteria."
+      content: "Our AI model will thoroughly review your submission documents to ensure it meets all necessary criteria and assign a rentability score. This will help Creditors understand the potential of your project."
      },
      {
       title: "Receive Funding",

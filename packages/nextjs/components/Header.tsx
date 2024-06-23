@@ -117,7 +117,7 @@ export const Header = () => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">PShare</span>
+            <span className="font-bold leading-tight">pƧhare</span>
             <span className="text-xs">Starknet dev stack</span>
           </div>
         </Link>
