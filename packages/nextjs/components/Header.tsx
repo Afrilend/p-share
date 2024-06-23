@@ -21,10 +21,22 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
+    label: "Creditor Platform",
+    href: '/creditor-platform'
+  },
+  {
+    label: "Debtor Platform",
+    href: '/debtor-platform'
+  },
+  {
+    label: "Admin",
+    href: '/admin'
+  },
+  {
     label: "Debug Contracts",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
-  },
+  }
 ];
 
 export const HeaderMenuLinks = () => {
@@ -105,7 +117,7 @@ export const Header = () => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-Stark</span>
+            <span className="font-bold leading-tight">pƧhare</span>
             <span className="text-xs">Starknet dev stack</span>
           </div>
         </Link>

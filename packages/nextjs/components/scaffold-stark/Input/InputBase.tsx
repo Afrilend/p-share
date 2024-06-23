@@ -13,6 +13,7 @@ type InputBaseProps<T> = CommonInputProps<T> & {
   prefix?: ReactNode;
   suffix?: ReactNode;
   reFocus?: boolean;
+  type?: string;
 };
 
 export const InputBase = <
@@ -27,6 +28,7 @@ export const InputBase = <
   prefix,
   suffix,
   reFocus,
+  type,
 }: InputBaseProps<T>) => {
   const inputReft = useRef<HTMLInputElement>(null);
 
@@ -73,6 +75,7 @@ export const InputBase = <
         autoComplete="off"
         ref={inputReft}
         onFocus={onFocus}
+        type={type}
       />
       {suffix}
     </div>
